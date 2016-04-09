@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <script type="text/javascript" src="js/p5.min.js"></script>
+        <script type="text/javascript" src="js/utils.js"></script>
+        <style> body {padding: 0; margin: 0;} </style>
+    </head>
+    <body>
+        <script>
+            var theta = 2.391101141;
+            var c = 1;
+            var cmult = 0.2;
+            var windowCenter;
+            var rot = 0;
+            var counter = 0;
+            var x = 
+                (n) => 
+                    c * Math.sqrt(n) * Math.cos(n * theta);
+
+            var y = 
+                (n) => 
+                    c * Math.sqrt(n) * Math.sin(n * theta);
+
+            
+
+
+            function setup () {
+                  canvas = createCanvas(windowWidth, windowHeight);
+                  frameRate(60)
+
+                windowCenter = {
+                    'x' : windowWidth / 2,
+                    'y' : windowHeight / 2
+                }
+            }
+
+
+            function draw () {
+                // clear();
+                fill(255, 10);
+                rect(0,0,width, height);
+                noStroke()
+                translate(windowWidth / 2, windowHeight / 2);
+                rotate(rot * 0.1)
+                for(var n = 0; n < frameCount * 0.1; n++){
+                    // if(Math.random() > .5) {
+                        fill(randomColour())
+                        // if(Math.random() > .5)
+                            rect(x(n), y(n), 4, 4);
+                        // else
+                            // ellipse(x(n), y(n), 6, 6);
+                    // }
+                }
+
+                stroke(randomGrey())
+                theta += 0.00001;
+                textSize(height * 0.1);
+                textAlign(CENTER);
+
+                fill(255, 100)
+
+                line(0, 0, width, height)
+                line(width, 0, 0, height)
+
+                fill(randomGrey())
+                text("Time evolves!", width * 0.3, 0);
+
+                // if(Math.random() > .5)
+                // c+= 0.2;
+                // rot+=0.3;
+                counter++;
+                if(counter > (60 + rot * 0.1)){
+
+                    counter = 0;
+                    cmult = cmult * -1;
+                }
+                c += cmult;
+                if(Math.random() > 0.8)
+                    rot+=0.3;
+            }
+        </script>
+    </body>
+</html>
